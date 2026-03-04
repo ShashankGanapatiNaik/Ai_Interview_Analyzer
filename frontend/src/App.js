@@ -16,14 +16,35 @@ function App() {
     fetchData();
   }, []);
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>AI Interview Behavior Analyzer</h1>
+    <div>
+      <h1 style={{ textAlign: "center" }}>AI Interview Behavior Analyzer</h1>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "50vw",
+            border: "2px solid black",
+            padding: "20px",
+          }}
+        >
+          <UploadVideo fetchData={fetchData} />
 
-      <UploadVideo fetchData={fetchData} />
+          <hr />
 
-      <hr />
-
-      <InterviewList interviews={interviews} />
+          <InterviewList interviews={interviews} />
+        </div>
+      </div>
     </div>
   );
 }
