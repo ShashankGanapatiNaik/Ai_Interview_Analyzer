@@ -365,7 +365,7 @@ backend/node_modules/
 # Uploaded files
 backend/uploads/
 
-# Environment variables
+# Environment 
 backend/.env
 
 # Python virtual environment inside interview_ai

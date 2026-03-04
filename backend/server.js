@@ -70,6 +70,16 @@ app.post("/video-analyze", upload.single("video"), async (req, res) => {
   }
 });
 
+app.get("/video-result", async (req, res) => {
+  try {
+    // Fetch all interview records from MongoDB and sort them by newest first.
+    const interviews = await Interview.find().sort({ createdAt: -1 });
+    res.json(interviews);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch interviews" });
+  }
+});
+
 mongoose.connect(process.env.DBURL).then(() => {
   console.log("connected to mangodb");
   app.listen(process.env.PORT, () =>
