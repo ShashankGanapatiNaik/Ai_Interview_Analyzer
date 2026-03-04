@@ -385,3 +385,6 @@ __pycache__/
 *.mp4
 *.jpg
 *.png
+
+frontend/node_modules/
+frontend/build/
