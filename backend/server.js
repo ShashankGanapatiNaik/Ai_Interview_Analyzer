@@ -19,7 +19,8 @@ const Interview = require("./model/interviewSchema");
 
 const app = express();
 app.use(cors());
-
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 const upload = multer({ dest: "uploads/" });
 /*Creates multer object.
 dest: "uploads/" means:
@@ -77,6 +78,27 @@ app.get("/video-result", async (req, res) => {
     res.json(interviews);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch interviews" });
+  }
+});
+
+app.post("/live-analyze", async (req, res) => {
+  try {
+    // console.log("Received body:", req.body);
+
+    const response = await axios.post(
+      "http://127.0.0.1:8000/analyze-frame",
+      req.body,
+    );
+
+    console.log("Python response:", response.data);
+
+    res.json(response.data);
+  } catch (error) {
+    console.log("Error calling Python:", error.message);
+
+    res.status(500).json({
+      error: "Live emotion analysis failed",
+    });
   }
 });
 

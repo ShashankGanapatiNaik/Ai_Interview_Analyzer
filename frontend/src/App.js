@@ -1,5 +1,6 @@
 import UploadVideo from "./components/UploadVideo";
 import InterviewList from "./components/InterviewList";
+import LiveInterview from "./components/LiveInterview";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
@@ -38,6 +39,7 @@ function App() {
             padding: "20px",
           }}
         >
+          <LiveInterview />
           <UploadVideo fetchData={fetchData} />
 
           <hr />
