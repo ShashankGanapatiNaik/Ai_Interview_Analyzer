@@ -1,5 +1,3 @@
-import axios from "axios";
-
 function InterviewList({ interviews }) {
   return (
     <div>
