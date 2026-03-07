@@ -5,4 +5,4 @@ nixPkgs = ["python310"]
 cmds = ["cd interview_ai && pip install -r requirements.txt"]
 
 [start]
-cmd = "cd interview_ai && uvicorn main:app --host 0.0.0.0 --port $PORT"
+cmd = "cd interview_ai && uvicorn emotion_service:app --host 0.0.0.0 --port $PORT"
