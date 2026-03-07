@@ -2,7 +2,7 @@ fastapi
 uvicorn
 deepface
 opencv-python
-numpy==1.24.4
+numpy
 pillow
 gunicorn
 python-dotenv
