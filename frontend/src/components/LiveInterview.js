@@ -4,9 +4,15 @@ import axios from "axios";
 
 function LiveInterview() {
   const webcamRef = useRef(null);
-  const [emotion, setEmotion] = useState("");
+  const intervalRef = useRef(null);
 
-  const capture = async () => {
+  const [emotion, setEmotion] = useState("");
+  const [running, setRunning] = useState(false);
+  const [cameraOn, setCameraOn] = useState(true);
+
+  const analyzeFrame = async () => {
+    if (!webcamRef.current) return;
+
     const imageSrc = webcamRef.current.getScreenshot();
 
     try {
@@ -16,20 +22,46 @@ function LiveInterview() {
 
       setEmotion(res.data.emotion);
     } catch (error) {
-      console.error("Live analysis failed");
+      console.log("Analysis failed");
     }
+  };
+
+  const startAnalysis = () => {
+    if (running) return;
+
+    setRunning(true);
+    setCameraOn(true);
+
+    intervalRef.current = setInterval(() => {
+      analyzeFrame();
+    }, 2000);
+  };
+
+  const stopAnalysis = () => {
+    setRunning(false);
+    setEmotion("");
+    clearInterval(intervalRef.current);
+
+    // turn off camera
+    setCameraOn(false);
   };
 
   return (
     <div style={{ textAlign: "center" }}>
-      <h2>Live Interview Analyzer</h2>
+      <h2>Live Interview Emotion Analyzer</h2>
 
-      <Webcam ref={webcamRef} screenshotFormat="image/jpeg" width={400} />
+      {cameraOn && (
+        <Webcam ref={webcamRef} screenshotFormat="image/jpeg" width={450} />
+      )}
 
       <br />
       <br />
 
-      <button onClick={capture}>Analyze Emotion</button>
+      <button onClick={startAnalysis}>Start Analyze</button>
+
+      <button onClick={stopAnalysis} style={{ marginLeft: "10px" }}>
+        Stop
+      </button>
 
       <h3>Detected Emotion: {emotion}</h3>
     </div>

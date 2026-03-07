@@ -39,13 +39,13 @@ function App() {
             padding: "20px",
           }}
         >
-          <LiveInterview />
           <UploadVideo fetchData={fetchData} />
 
           <hr />
 
           <InterviewList interviews={interviews} />
         </div>
+        <LiveInterview />
       </div>
     </div>
   );
