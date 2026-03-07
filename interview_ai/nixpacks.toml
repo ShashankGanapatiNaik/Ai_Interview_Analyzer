@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["python310", "mesa", "libglvnd", "glib"]
+nixPkgs = ["python310", "mesa", "libglvnd", "glib", "ffmpeg"]
 
 [phases.install]
 cmds = ["pip install -r requirements.txt"]
