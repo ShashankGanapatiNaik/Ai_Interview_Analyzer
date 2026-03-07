@@ -8,9 +8,7 @@ tqdm
 pillow
 opencv-python-headless
 tensorflow==2.15.0
-keras
-flask
-flask-cors
+keras==2.15.0
 mtcnn
 retina-face
 gunicorn
