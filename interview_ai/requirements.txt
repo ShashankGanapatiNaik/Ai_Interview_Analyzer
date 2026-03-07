@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 requests
-numpy
+numpy==1.24.4
 pandas
 gdown
 tqdm
@@ -13,6 +13,5 @@ flask
 flask-cors
 mtcnn
 retina-face
-fire
 gunicorn
 python-dotenv
