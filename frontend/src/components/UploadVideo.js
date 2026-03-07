@@ -4,7 +4,7 @@ import axios from "axios";
 function UploadVideo({ fetchData }) {
   const [video, setvideo] = useState(null);
   const [result, setresult] = useState(null);
-
+  const [loading, setLoading] = useState(false);
   const handleUpload = async () => {
     if (!video) {
       alert("Please select a video");
@@ -13,26 +13,62 @@ function UploadVideo({ fetchData }) {
 
     const formData = new FormData();
     formData.append("video", video);
-
-    const res = await axios.post(
-      "http://localhost:5000/video-analyze",
-      formData,
-    );
-    fetchData();
-    setresult(res.data);
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        "http://localhost:5000/video-analyze",
+        formData,
+      );
+      fetchData();
+      setresult(res.data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      alert("Video analysis failed");
+    }
   };
 
   return (
-    <div>
-      <h2>Upload Interviw Video</h2>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
 
-      <input type="file" onChange={(e) => setvideo(e.target.files[0])} />
+        // alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        <h2>Upload Interviw Video</h2>
+
+        <input type="file" onChange={(e) => setvideo(e.target.files[0])} />
+      </div>
 
       <br></br>
-      <button onClick={handleUpload}>Analyze Interview</button>
+      <button style={{ border: "2px solid white" }} onClick={handleUpload}>
+        Analyze Interview
+      </button>
+      {loading && <p>Analyzing video... Please wait</p>}
       {result && (
         <div>
-          <h3>Dominant Emotion:{result.dominantEmotion}</h3>
+          <p>
+            Result: {result.candidateName}-{result.dominantEmotion}
+          </p>
+          <div>
+            {Object.entries(result.distribution).map(([key, value]) => (
+              <p key={key}>
+                {key}: {value}
+              </p>
+            ))}
+          </div>
+          <p>Total Frame:{result.totalFrames}</p>
         </div>
       )}
     </div>

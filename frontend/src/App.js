@@ -1,53 +1,90 @@
 import UploadVideo from "./components/UploadVideo";
 import InterviewList from "./components/InterviewList";
 import LiveInterview from "./components/LiveInterview";
-import { useState } from "react";
-import { useEffect } from "react";
+
+import { useState, useEffect } from "react";
 import axios from "axios";
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
+
+function Buttons() {
+  const navigate = useNavigate();
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-evenly",
+        width: "100%",
+      }}
+    >
+      <button
+        style={{ backgroundColor: "blueviolet" }}
+        onClick={() => navigate("/")}
+      >
+        Upload Video
+      </button>
+      <button
+        style={{ backgroundColor: "red" }}
+        onClick={() => navigate("/interviewlist")}
+      >
+        Interview List
+      </button>
+      <button
+        style={{ backgroundColor: "red" }}
+        onClick={() => navigate("/livevideo")}
+      >
+        Live Video
+      </button>
+    </div>
+  );
+}
 
 function App() {
   const [interviews, setinterviews] = useState([]);
 
   const fetchData = async () => {
-    axios
-      .get("http://localhost:5000/video-result")
-      .then((res) => setinterviews(res.data));
+    const res = await axios.get("http://localhost:5000/video-result");
+    setinterviews(res.data);
   };
+
   useEffect(() => {
     fetchData();
   }, []);
+
   return (
-    <div>
-      <h1 style={{ textAlign: "center" }}>AI Interview Behavior Analyzer</h1>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "100vh",
-        }}
-      >
+    <Router>
+      <div>
+        <h1 style={{ textAlign: "center" }}>AI Interview Analyzer</h1>
+        <div>
+          <Buttons />
+        </div>
+
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "50vw",
-            border: "2px solid black",
+            border: "1px solid white",
             padding: "20px",
+            marginTop: "20px",
           }}
         >
-          <UploadVideo fetchData={fetchData} />
+          <Routes>
+            <Route path="/" element={<UploadVideo fetchData={fetchData} />} />
 
-          <hr />
+            <Route
+              path="/interviewlist"
+              element={<InterviewList interviews={interviews} />}
+            />
 
-          <InterviewList interviews={interviews} />
+            <Route path="/livevideo" element={<LiveInterview />} />
+          </Routes>
         </div>
-        <LiveInterview />
       </div>
-    </div>
+    </Router>
   );
 }
 

@@ -16,6 +16,7 @@ function InterviewList({ interviews }) {
               </p>
             ))}
           </div>
+          <p>Total Frame:{item.totalFrames}</p>
         </div>
       ))}
     </div>
