@@ -249,8 +249,16 @@ async def analyze_endpoint(file:UploadFile=File(...)):
 
 import base64
 import numpy as np
-import cv2
+from PIL import Image
+from io import BytesIO
 from deepface import DeepFace
+from fastapi import FastAPI, UploadFile, File
+import shutil
+import os
+from collections import Counter
+
+app = FastAPI()
+
 
 @app.post("/analyze-frame")
 async def analyze_frame(data: dict):
@@ -264,25 +272,17 @@ async def analyze_frame(data: dict):
     if "," in image_data:
         image_data = image_data.split(",")[1]
 
-    # fix base64 padding
-    missing_padding = len(image_data) % 4
-    if missing_padding:
-        image_data += "=" * (4 - missing_padding)
-
-    # convert base64 → bytes
+    # decode base64
     try:
         image_bytes = base64.b64decode(image_data)
     except Exception:
         return {"error": "Base64 decode failed"}
 
-    # convert bytes → numpy array
-    nparr = np.frombuffer(image_bytes, np.uint8)
+    # convert to PIL image
+    image = Image.open(BytesIO(image_bytes)).convert("RGB")
 
-    # decode image using OpenCV
-    frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-
-    if frame is None:
-        return {"error": "Image decoding failed"}
+    # convert to numpy array
+    frame = np.array(image)
 
     # emotion detection
     result = DeepFace.analyze(
@@ -293,6 +293,4 @@ async def analyze_frame(data: dict):
 
     emotion = result[0]["dominant_emotion"]
 
-    return {
-        "emotion": emotion
-    }
+    return {"emotion": emotion}
