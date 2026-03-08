@@ -90,7 +90,7 @@ app.post("/live-analyze", async (req, res) => {
       req.body,
     );
 
-    console.log("Python response:", response.data);
+    // console.log("Python response:", response.data);
 
     res.json(response.data);
   } catch (error) {

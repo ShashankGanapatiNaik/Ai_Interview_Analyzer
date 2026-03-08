@@ -6,7 +6,7 @@ function LiveInterview() {
   const webcamRef = useRef(null);
   const intervalRef = useRef(null);
 
-  const [emotion, setEmotion] = useState("");
+  const [emotion, setEmotion] = useState({});
   const [running, setRunning] = useState(false);
   const [cameraOn, setCameraOn] = useState(true);
 
@@ -20,7 +20,7 @@ function LiveInterview() {
         image: imageSrc,
       });
 
-      setEmotion(res.data.emotion);
+      setEmotion(res.data);
     } catch (error) {
       console.log("Analysis failed");
     }
@@ -39,7 +39,7 @@ function LiveInterview() {
 
   const stopAnalysis = () => {
     setRunning(false);
-    setEmotion("");
+    setEmotion({});
     clearInterval(intervalRef.current);
 
     // turn off camera
@@ -62,8 +62,18 @@ function LiveInterview() {
       <button onClick={stopAnalysis} style={{ marginLeft: "10px" }}>
         Stop
       </button>
+      <h3>Detected Emotion: {emotion.dominant_emotion}</h3>
 
-      <h3>Detected Emotion: {emotion}</h3>
+      {/* <h3>Distribution:</h3>
+      {emotion.distribution &&
+        Object.entries(emotion.distribution).map(([emotionName, value]) => (
+          <p key={emotionName}>
+            {emotionName}: {value}
+          </p>
+        ))} */}
+      <h3>Emotion Chart:</h3>
+      {emotion.emotion_chart &&
+        emotion.emotion_chart.map((line, index) => <p key={index}>{line}</p>)}
     </div>
   );
 }
