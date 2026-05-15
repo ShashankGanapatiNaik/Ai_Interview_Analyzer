@@ -1,0 +1,205 @@
+# ============================================================
+#  AI Interview Behavior Analyzer — .gitignore
+# ============================================================
+
+# ── Python / Backend ─────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+.eggs/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+
+# Unit test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+nosetests.xml
+test-results/
+
+# MyPy / type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*.ipynb
+
+# ── Environment & Secrets ────────────────────────────────────
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+.env.test
+*.env
+backend/.env
+frontend/.env
+
+# ── Node / Frontend ──────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-store/
+
+# Vite build output
+dist/
+dist-ssr/
+frontend/dist/
+frontend/dist-ssr/
+
+# Cache
+.vite/
+.cache/
+.parcel-cache/
+.turbo/
+
+# ── AI / ML Models ───────────────────────────────────────────
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.pt
+*.pth
+*.onnx
+*.pb
+*.tflite
+models/
+!models/.gitkeep
+
+# ── Uploads & Media ──────────────────────────────────────────
+uploads/
+recordings/
+*.mp4
+*.webm
+*.mp3
+*.wav
+*.ogg
+!uploads/.gitkeep
+
+# ── Generated Reports ────────────────────────────────────────
+reports/
+*.pdf
+!reports/.gitkeep
+
+# ── Database ─────────────────────────────────────────────────
+*.sqlite
+*.sqlite3
+*.db
+dump.rdb
+*.rdb
+
+# ── Logs ─────────────────────────────────────────────────────
+logs/
+*.log
+log/
+*.out
+
+# ── OS / System ──────────────────────────────────────────────
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# ── IDE / Editors ────────────────────────────────────────────
+# VSCode
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json.example
+
+# JetBrains (PyCharm, WebStorm)
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Vim / Neovim
+*.swp
+*.swo
+*.swn
+Session.vim
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ── Docker (explicitly excluded since not used) ───────────────
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# ── Misc ─────────────────────────────────────────────────────
+.sass-cache/
+*.css.map
+*.js.map
+.grunt/
+.lock-wscript
+*.tgz
+.yarn-integrity
+.eslintcache
+.stylelintcache
+*.pid
+*.seed
+*.pid.lock
+.nyc_output/
+jspm_packages/
+typings/
+.node_repl_history
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*

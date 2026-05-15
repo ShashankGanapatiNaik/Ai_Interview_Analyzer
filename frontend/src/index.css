@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ── Design Tokens ──────────────────────────────────────────────────────────── */
+:root {
+  --bg:      #060a0f;
+  --bg2:     #0c1219;
+  --bg3:     #111922;
+  --surface:  #141e2a;
+  --surface2: #1a2535;
+  --border:   rgba(99, 179, 237, 0.12);
+  --border2:  rgba(99, 179, 237, 0.22);
+  --accent:   #00d4ff;
+  --accent2:  #7c3aed;
+  --accent3:  #10b981;
+  --accent4:  #f59e0b;
+  --accent5:  #ef4444;
+  --text:     #e2e8f0;
+  --muted:    #64748b;
+  --muted2:   #94a3b8;
+  --glow:     rgba(0, 212, 255, 0.12);
+  --glow2:    rgba(124, 58, 237, 0.12);
+  --font:     'Syne', sans-serif;
+  --mono:     'JetBrains Mono', monospace;
+}
+
+/* ── Reset ──────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ── Typography ─────────────────────────────────────────────────────────────── */
+h1, h2, h3, h4 { font-weight: 800; letter-spacing: -0.03em; }
+.font-mono { font-family: var(--mono); }
+
+/* ── Gradient text ──────────────────────────────────────────────────────────── */
+.grad-text {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glass card effect ──────────────────────────────────────────────────────── */
+.glass {
+  background: rgba(20, 30, 42, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+}
+
+/* ── Animations ─────────────────────────────────────────────────────────────── */
+@keyframes pulse-border {
+  0%, 100% {
+    border-color: rgba(0, 212, 255, 0.9);
+    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.3);
+  }
+  50% {
+    border-color: rgba(0, 212, 255, 0.4);
+    box-shadow: 0 0 0 8px rgba(0, 212, 255, 0);
+  }
+}
+
+@keyframes ai-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  50% { transform: scale(1.2); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+}
+
+@keyframes wave-bar {
+  0%, 100% { height: 4px; opacity: 0.4; }
+  50% { height: 100%; opacity: 1; }
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spin-ring {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Utility animations ─────────────────────────────────────────────────────── */
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-ai-pulse { animation: ai-pulse 2s ease-in-out infinite; }
+.animate-cursor { animation: cursor-blink 1s step-end infinite; }
+
+/* ── Skeleton loading ───────────────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ── Webcam overlay pulse ───────────────────────────────────────────────────── */
+.face-tracking-box {
+  animation: pulse-border 2s ease-in-out infinite;
+}
+
+/* ── Toast overrides ────────────────────────────────────────────────────────── */
+.react-hot-toast > div {
+  font-family: var(--font) !important;
+}
+
+/* ── Form inputs global ─────────────────────────────────────────────────────── */
+input, select, textarea {
+  font-family: var(--font);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent) !important;
+  outline: none;
+}
+
+/* ── Table hover ────────────────────────────────────────────────────────────── */
+tbody tr:hover td {
+  background: var(--surface2);
+  transition: background 0.15s;
+}
+
+/* ── Recharts custom ────────────────────────────────────────────────────────── */
+.recharts-tooltip-wrapper {
+  outline: none !important;
+}
+
+.recharts-cartesian-axis-tick text {
+  fill: var(--muted) !important;
+  font-family: var(--mono) !important;
+  font-size: 11px !important;
+}
+
+/* ── Nav active glow ────────────────────────────────────────────────────────── */
+.nav-active {
+  position: relative;
+}
+.nav-active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
+/* ── Score badges ───────────────────────────────────────────────────────────── */
+.score-high { background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.3); }
+.score-mid  { background: rgba(245,158,11,0.15);  color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+.score-low  { background: rgba(239,68,68,0.15);   color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+
+/* ── AI analysis cards shimmer border ──────────────────────────────────────── */
+.ai-card-border {
+  position: relative;
+}
+.ai-card-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent));
+  background-size: 200% 200%;
+  animation: shimmer 3s linear infinite;
+  z-index: -1;
+  opacity: 0.4;
+}
+
+/* ── Responsive grid helpers ────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .grid-interview { grid-template-columns: 1fr !important; }
+  .grid-report    { grid-template-columns: 1fr !important; }
+  .grid-stats-4   { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+@media (max-width: 640px) {
+  .grid-stats-4   { grid-template-columns: 1fr !important; }
+  .hide-mobile    { display: none !important; }
+}
